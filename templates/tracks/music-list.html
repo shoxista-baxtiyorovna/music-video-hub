@@ -10,11 +10,12 @@
         </section>
 
         <section class="music-list">
+            {% for track in tracks %}
             <div class="music-item glass-effect">
-                <img src="https://via.placeholder.com/150x150" alt="Song 1">
+                <img src="images/{{ track.cover_image }}" alt="Song 1">
                 <div class="music-info">
-                    <h3>Awesome Song</h3>
-                    <p>Amazing Artist</p>
+                    <h3>{{ track.music_title }}</h3>
+                    <p>{{ track.artist }}</p>
                 </div>
                 <div class="music-actions">
                     <a href="{{ track.get_detail_url }}" class="btn btn-info"><i class="fas fa-info-circle"></i></a>
@@ -22,18 +23,9 @@
                     <a href="{{ track.get_delete_url }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                 </div>
             </div>
-            <div class="music-item glass-effect">
-                <img src="https://via.placeholder.com/150x150" alt="Song 2">
-                <div class="music-info">
-                    <h3>Cool Tune</h3>
-                    <p>Groovy Band</p>
-                </div>
-                <div class="music-actions">
-                    <a href="music-detail.html" class="btn btn-info"><i class="fas fa-info-circle"></i></a>
-                    <a href="music-update.html" class="btn btn-edit"><i class="fas fa-edit"></i></a>
-                    <a href="music-delete-confirm.html" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                </div>
-            </div>
+            {% empty %}
+            <h1> There are no tracks yet</h1>
+            {% endfor %}
         </section>
 
     {% endblock %}

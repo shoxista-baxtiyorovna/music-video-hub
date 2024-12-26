@@ -19,8 +19,8 @@ def track_create(request):
         album = request.POST.get('album')
         genre = request.POST.get('genre')
         release_date = request.POST.get('release_date')
-        cover_image = request.POST.get('cover_image')
-        audio_file = request.POST.get('audio_file')
+        cover_image = request.FILES.get('cover_image')
+        audio_file = request.FILES.get('audio_file')
         if music_title and artist and album and genre and release_date and cover_image and audio_file:
             Track.objects.create(
                 music_title=music_title,
@@ -32,7 +32,7 @@ def track_create(request):
                 audio_file=audio_file,
             )
             return redirect('home')
-    return render(request, 'tracks/music-create.html')
+    return render(request, 'tracks/music-form.html')
 
 def update(request, track_id):
     track = get_object_or_404(Track, pk=track_id)
@@ -42,8 +42,8 @@ def update(request, track_id):
         album = request.POST.get('album')
         genre = request.POST.get('genre')
         release_date = request.POST.get('release_date')
-        cover_image = request.POST.get('cover_image')
-        audio_file = request.POST.get('audio_file')
+        cover_image = request.FILES.get('cover_image')
+        audio_file = request.FILES.get('audio_file')
         if music_title and artist and album and genre and release_date and cover_image and audio_file:
             track.music_title = music_title
             track.artist = artist
@@ -55,7 +55,7 @@ def update(request, track_id):
             track.save()
             return redirect(track.get_detail_url())
     ctx = {'track': track}
-    return render(request, 'tracks/music-update.html', ctx)
+    return render(request, 'tracks/music-form.html', ctx)
 
 
 def track_delete(request, track_id):
@@ -64,8 +64,8 @@ def track_delete(request, track_id):
     return redirect('tracks:list')
 
 def detail(request, track_id):
-    tracks = get_object_or_404(Track, pk=track_id)
-    ctx = {'tracks': tracks}
+    track = get_object_or_404(Track, pk=track_id)
+    ctx = {'track': track}
     return render(request, 'tracks/music-detail.html', ctx)
 
 
