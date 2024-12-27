@@ -31,7 +31,7 @@ def track_create(request):
                 cover_image=cover_image,
                 audio_file=audio_file,
             )
-            return redirect('home')
+            return redirect('tracks:list')
     return render(request, 'tracks/music-form.html')
 
 def update(request, track_id):
@@ -60,14 +60,15 @@ def update(request, track_id):
 
 def track_delete(request, track_id):
     track = get_object_or_404(Track, pk=track_id)
-    track.delete()
-    return redirect('tracks:list')
+    ctx = {'track': track}
+    if request.method == 'POST':
+        track.delete()
+        return redirect('tracks:list')
+    return render(request, 'tracks/music-delete-confirm.html', ctx)
 
 def detail(request, track_id):
     track = get_object_or_404(Track, pk=track_id)
     ctx = {'track': track}
     return render(request, 'tracks/music-detail.html', ctx)
-
-
 
 

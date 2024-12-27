@@ -7,7 +7,7 @@ class Track(models.Model):
     artist = models.CharField(max_length=100)
     album = models.TextField(max_length=300)
     genre = models.TextField(max_length=500)
-    release_date = models.DateTimeField(auto_now_add=True)
+    release_date = models.DateField()
     cover_image = models.ImageField(upload_to='image/')
     audio_file = models.FileField(upload_to='audio/')
 
